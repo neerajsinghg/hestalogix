@@ -1,0 +1,6 @@
+# Python scripts (internal use only)
+*.py
+__pycache__/
+
+# Originals backup (not needed for hosting)
+originals/
