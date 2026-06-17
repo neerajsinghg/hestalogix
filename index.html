@@ -79,7 +79,100 @@
   50%  { transform: translateX(6px); }
   100% { transform: translateX(0px); }
 }
+
+/* ============================
+   NAV DROPDOWN FIX (Static site)
+   ============================ */
+
+/* Desktop mega-menu: show dropdown on hover */
+.e-n-menu-item:hover .e-n-menu-content,
+.e-n-menu-item:focus-within .e-n-menu-content {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: all !important;
+}
+.e-n-menu-content {
+  display: none;
+  position: absolute;
+  z-index: 9999;
+  top: 100%;
+  left: 0;
+  min-width: 600px;
+  background: #fff;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  border-radius: 8px;
+  animation: navDropIn 0.2s ease;
+}
+@keyframes navDropIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile off-canvas nav: sub-menu toggle */
+.elementor-nav-menu .menu-item-has-children > a::after {
+  content: " ▾";
+  font-size: 0.8em;
+  opacity: 0.7;
+}
+.elementor-nav-menu .sub-menu {
+  display: none;
+  padding-left: 16px;
+}
+.elementor-nav-menu .menu-item-has-children.open > .sub-menu {
+  display: block;
+}
+
+/* Ensure n-menu items are positioned for dropdown */
+.e-n-menu-heading { position: relative; }
+.e-n-menu-item    { position: relative; }
+
+/* Active/hover state highlight */
+.e-n-menu-title-container:hover .e-n-menu-title-text,
+.elementor-item:hover {
+  color: #e8840c !important;
+  transition: color 0.2s ease;
+}
 </style>
+<script>
+/* Nav smooth dropdown + mobile toggle — works without Elementor JS */
+document.addEventListener('DOMContentLoaded', function () {
+
+  /* --- Desktop: close dropdown when clicking outside --- */
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.e-n-menu-item')) {
+      document.querySelectorAll('.e-n-menu-content').forEach(function (d) {
+        d.style.display = '';
+      });
+    }
+  });
+
+  /* --- Mobile off-canvas: toggle sub-menus on click --- */
+  document.querySelectorAll('.elementor-nav-menu .menu-item-has-children > a').forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      var parent = this.closest('.menu-item-has-children');
+      if (parent) {
+        e.preventDefault();
+        parent.classList.toggle('open');
+      }
+    });
+  });
+
+  /* --- Fix desktop n-menu dropdown button (chevron) --- */
+  document.querySelectorAll('.e-n-menu-dropdown-icon').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      var item    = this.closest('.e-n-menu-item');
+      var content = item ? item.querySelector('.e-n-menu-content') : null;
+      if (!content) return;
+      var isOpen = content.style.display === 'block';
+      /* Close all others first */
+      document.querySelectorAll('.e-n-menu-content').forEach(function (d) { d.style.display = ''; });
+      content.style.display = isOpen ? '' : 'block';
+    });
+  });
+});
+</script>
 </head>
 <body class="home wp-singular page-template-default page page-id-9345 wp-custom-logo wp-embed-responsive wp-theme-hello-elementor gutenkit gutenkit-frontend hello-elementor-default elementor-default elementor-kit-5 elementor-page elementor-page-9345"><!--
  Google Tag Manager (noscript) 
