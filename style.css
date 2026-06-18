@@ -1422,3 +1422,13 @@ button, input, textarea, select {
     border-color: #f36f00 !important; /* Orange accent on focus */
     outline: none !important;
 }
+
+/* ==========================================================================
+   19. Global Logo Sizing
+   ========================================================================== */
+.elementor-widget-theme-site-logo img,
+.elementor-widget-theme-site-logo .elementor-widget-container img {
+    width: 400px !important;
+    height: auto !important;
+    max-height: 143px !important;
+}
