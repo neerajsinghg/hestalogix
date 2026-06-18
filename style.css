@@ -1444,21 +1444,68 @@ button, input, textarea, select {
 
 /* Desktop only: show mega-menu dropdowns on hover */
 @media (min-width: 1025px) {
-    /* Make the dropdown wrapper visible */
+    /* Make the dropdown wrapper visible, wide, and centered under the menu item */
     .e-n-menu-item:hover .e-n-menu-content,
     .e-n-menu-item:focus-within .e-n-menu-content {
         display: block !important;
         opacity: 1 !important;
         visibility: visible !important;
         pointer-events: all !important;
+        
+        width: 850px !important;
+        max-width: 90vw !important;
+        left: 50% !important;
+        right: auto !important;
+        transform: translateX(-50%) !important;
+        background: #ffffff !important;
+        border-radius: 8px !important;
+        box-shadow: 0 15px 45px rgba(0,0,0,0.15) !important;
+        padding: 30px !important;
+        z-index: 99999 !important;
     }
     
-    /* Make the inner flex container visible (overriding Elementor's :not(.e-active) display: none) */
+    /* Make the inner flex container visible and full width */
     .e-n-menu-item:hover .e-n-menu-content > .e-con,
     .e-n-menu-item:focus-within .e-n-menu-content > .e-con {
         display: flex !important;
         opacity: 1 !important;
         visibility: visible !important;
+        width: 100% !important;
+    }
+    
+    /* Ensure the inner boxed container wrapper expands to 100% width */
+    .e-n-menu-content .e-con-inner {
+        width: 100% !important;
+        max-width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 20px !important;
+    }
+    
+    /* Target nested Elementor container rows of products inside mega menu */
+    .e-n-menu-content .e-con-inner > .e-con {
+        width: 100% !important;
+        max-width: 100% !important;
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        justify-content: space-between !important;
+        gap: 30px !important;
+    }
+
+    /* Target specific columns containing products */
+    .e-n-menu-content .e-con-inner > .e-con > .e-con {
+        flex: 1 1 0% !important;
+        min-width: 200px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 15px !important;
+    }
+
+    /* Ensure widget wrappers inside columns display block or flex and don't overlap */
+    .e-n-menu-content .elementor-widget-image-box {
+        width: 100% !important;
+        margin-bottom: 0 !important;
     }
 }
 
