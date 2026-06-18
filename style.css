@@ -1432,3 +1432,53 @@ button, input, textarea, select {
     height: auto !important;
     max-height: 143px !important;
 }
+
+
+/* ==========================================================================
+   20. Nav Dropdown Hover Fix (Static Site)
+   ========================================================================== */
+
+/* Ensure parent menu items are positioned relatively for dropdowns */
+.e-n-menu-heading { position: relative; }
+.e-n-menu-item    { position: relative; }
+
+/* Desktop only: show mega-menu dropdowns on hover */
+@media (min-width: 1025px) {
+    /* Make the dropdown wrapper visible */
+    .e-n-menu-item:hover .e-n-menu-content,
+    .e-n-menu-item:focus-within .e-n-menu-content {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: all !important;
+    }
+    
+    /* Make the inner flex container visible (overriding Elementor's :not(.e-active) display: none) */
+    .e-n-menu-item:hover .e-n-menu-content > .e-con,
+    .e-n-menu-item:focus-within .e-n-menu-content > .e-con {
+        display: flex !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+}
+
+/* Mobile off-canvas nav: sub-menu toggle indicator */
+.elementor-nav-menu .menu-item-has-children > a::after {
+    content: " ▾";
+    font-size: 0.8em;
+    opacity: 0.7;
+}
+.elementor-nav-menu .sub-menu {
+    display: none;
+    padding-left: 16px;
+}
+.elementor-nav-menu .menu-item-has-children.open > .sub-menu {
+    display: block;
+}
+
+/* Active/hover state highlight */
+.e-n-menu-title-container:hover .e-n-menu-title-text,
+.elementor-item:hover {
+    color: #e8840c !important;
+    transition: color 0.2s ease;
+}

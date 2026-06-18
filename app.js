@@ -454,4 +454,57 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
     initBackToTop();
+
+    // 9. Desktop Dropdown Fallback & Chevron click (Static Site)
+    const initDesktopDropdown = () => {
+        // Desktop: close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.e-n-menu-item')) {
+                document.querySelectorAll('.e-n-menu-content').forEach(d => {
+                    d.style.display = '';
+                    const childCon = d.querySelector('.e-con');
+                    if (childCon) childCon.style.display = '';
+                });
+            }
+        });
+
+        // Click chevron to toggle dropdown on desktop/laptop
+        document.querySelectorAll('.e-n-menu-dropdown-icon').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (window.innerWidth > 1024) {
+                    const item = btn.closest('.e-n-menu-item');
+                    const content = item ? item.querySelector('.e-n-menu-content') : null;
+                    if (!content) return;
+                    
+                    const childCon = content.querySelector('.e-con');
+                    const isOpen = content.style.display === 'block';
+                    
+                    // Close others
+                    document.querySelectorAll('.e-n-menu-content').forEach(d => {
+                        d.style.display = '';
+                        const c = d.querySelector('.e-con');
+                        if (c) c.style.display = '';
+                    });
+                    
+                    if (!isOpen) {
+                        content.style.display = 'block';
+                        if (childCon) childCon.style.display = 'flex';
+                    }
+                }
+            });
+        });
+        
+        // Mobile off-canvas: toggle sub-menus on click
+        document.querySelectorAll('.elementor-nav-menu .menu-item-has-children > a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const parent = link.closest('.menu-item-has-children');
+                if (parent) {
+                    e.preventDefault();
+                    parent.classList.toggle('open');
+                }
+            });
+        });
+    };
+    initDesktopDropdown();
 });
